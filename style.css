@@ -12,17 +12,24 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
-
-    display: flex;
-    flex-direction: column;
 }
 
 .container.top {
-    flex: 1;
+    height: 25vh;
     background-color: var(--offwhite);
 }
 
 .container.bottom {
-    flex: 3;
+    height: 75vh;
     background-color: var(--gray);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: var(--white);
+    height: 200px;
 }
