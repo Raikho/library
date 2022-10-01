@@ -79,12 +79,13 @@ button {
     grid-template-columns: 1fr 20px 20px 20px;
     grid-template-rows: 1fr 4fr 20px;
     grid-template-areas:
-    "title title title title"
+    "title pages pages pages"
     "summary summary summary summary"
     ". read favorite delete";
     gap: 10px;
 }
 .card>.title {grid-area: title;}
+.card>.pages {grid-area: pages;}
 .card>.summary {grid-area: summary;}
 .card>.read {grid-area: read;}
 .card>.favorite {grid-area: favorite;}
