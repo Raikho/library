@@ -39,6 +39,7 @@ function removeBookFromLibrary(index) {
     console.log(`removing index: ${index}`);
     library.splice(index, 1);
 
+    updateIndicies();
     clearLibraryNode();
     updateLibraryNode();
 }
@@ -46,6 +47,13 @@ function removeBookFromLibrary(index) {
 function resetInput() {
     titleNode.value = '';
     summaryNode.value = '';
+}
+
+function updateIndicies() {
+    for (let i=0; i<library.length; i++) {
+        let book = library[i];
+        book.index = i;
+    }
 }
 
 function clearLibraryNode() {
