@@ -94,7 +94,7 @@ function updateLibraryNode() {
         titleNode.textContent = book.title;
         let pagesNode = document.createElement('div');
         pagesNode.classList.add('pages');
-        pagesNode.textContent = book.pages;
+        pagesNode.textContent = book.pages + 'pg';
         let summaryNode = document.createElement('div');
         summaryNode.classList.add('summary');
         summaryNode.textContent = book.summary;
@@ -134,7 +134,7 @@ function addStarterBooks() {
     summary = 'This summary is longer and better...'
     pages = 200;
     library.push(new Book(title, summary, pages, library.length));
-    
+
     clearLibraryNode();
     updateLibraryNode();
 }

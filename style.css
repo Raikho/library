@@ -6,6 +6,7 @@
     --accent1-light: #f0f9ff;
     --accent2: #eab308;
     --black: #0f172a;
+    --red: indianred;
 }
 
 body {
@@ -50,7 +51,7 @@ input,
 textarea {
     background-color: var(--accent1-light);
 }
-button {
+button#add-book {
     background-color: var(--accent1);
     padding: 4px 8px;
     color: var(--white);
@@ -93,6 +94,36 @@ button {
 
 .card>*{border: 1px dashed orangered;}
 
-.toggled {
-    background-color: green;
+.read {
+    -webkit-mask-image: url(img/eye-outline.svg);
+    mask-image: url(img/eye-outline.svg);
+    background-color: var(--black);
+    opacity: 0.5;
 }
+.favorite {
+    -webkit-mask-image: url(img/star-outline.svg);
+    mask-image: url(img/star-outline.svg);
+    background-color: var(--black);
+    opacity: 0.5;
+}
+.delete {
+    -webkit-mask-image: url(img/close-circle.svg);
+    mask-image: url(img/close-circle.svg);
+    background-color: var(--red);
+    opacity: 0.5;
+}
+.read.toggled {
+    -webkit-mask-image: url(img/eye.svg);
+    mask-image: url(img/eye.svg);
+}
+.favorite.toggled {
+    -webkit-mask-image: url(img/star.svg);
+    mask-image: url(img/star.svg);
+}
+.read:hover,
+.favorite:hover,
+.delete:hover {
+    opacity: 1;
+}
+.read.toggled {background-color: green;}
+.favorite.toggled {background-color: darkgoldenrod;}
