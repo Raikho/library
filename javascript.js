@@ -123,3 +123,19 @@ function updateLibraryNode() {
     }
 }
 
+
+function addStarterBooks() {
+    let title = 'Cool Book';
+    let summary = 'Detailed Summary of Book...';
+    let pages = 99;
+    library.push(new Book(title, summary, pages, library.length))
+    
+    title = 'Another Book Title'
+    summary = 'This summary is longer and better...'
+    pages = 200;
+    library.push(new Book(title, summary, pages, library.length));
+    
+    clearLibraryNode();
+    updateLibraryNode();
+}
+addStarterBooks();
