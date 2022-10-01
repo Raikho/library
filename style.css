@@ -6,6 +6,7 @@
     --accent1-light: #f0f9ff;
     --accent2: #eab308;
     --black: #0f172a;
+    --offblack: #0f172a;
     --red: indianred;
 }
 
@@ -85,14 +86,23 @@ button#add-book {
     ". read favorite delete";
     gap: 10px;
 }
-.card>.title {grid-area: title;}
-.card>.pages {grid-area: pages;}
-.card>.summary {grid-area: summary;}
+.card>.title {
+    grid-area: title;
+    font-weight: 700;
+}
+.card>.pages {
+    grid-area: pages;
+    justify-self: end;
+    opacity: 0.5;
+}
+.card>.summary {
+    grid-area: summary;
+    color: var(--offblack);
+    font-size: 16px;
+}
 .card>.read {grid-area: read;}
 .card>.favorite {grid-area: favorite;}
 .card>.delete {grid-area: delete;}
-
-.card>*{border: 1px dashed orangered;}
 
 .read {
     -webkit-mask-image: url(img/eye-outline.svg);
