@@ -92,3 +92,7 @@ button {
 .card>.delete {grid-area: delete;}
 
 .card>*{border: 1px dashed orangered;}
+
+.toggled {
+    background-color: green;
+}

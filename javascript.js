@@ -8,8 +8,15 @@ const libraryNode = document.querySelector('.container.bottom')
 addBookButton.addEventListener('click', addBookToLibrary);
 
 document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('delete')) {
-        removeBookFromLibrary(e.target.parentNode.dataset.index);
+    let node = e.target;
+    if (node.classList.contains('read')) {
+        toggleRead(node.parentNode.dataset.index);
+    }
+    if (node.classList.contains('favorite')) {
+        toggleFavorite(node.parentNode.dataset.index);
+    }
+    if (node.classList.contains('delete')) {
+        removeBookFromLibrary(node.parentNode.dataset.index);
     }
 });
 
@@ -40,6 +47,20 @@ function removeBookFromLibrary(index) {
     library.splice(index, 1);
 
     updateIndicies();
+    clearLibraryNode();
+    updateLibraryNode();
+}
+
+function toggleRead(index) {
+    let book = library[index];
+    book.read = !book.read;
+    clearLibraryNode();
+    updateLibraryNode();
+}
+
+function toggleFavorite(index) {
+    let book = library[index];
+    book.favorite = !book.favorite;
     clearLibraryNode();
     updateLibraryNode();
 }
@@ -80,8 +101,12 @@ function updateLibraryNode() {
 
         let readNode = document.createElement('button')
         readNode.classList.add('read');
+        if(book.read) 
+            readNode.classList.add('toggled');
         let favoriteNode = document.createElement('button')
         favoriteNode.classList.add('favorite');
+        if(book.favorite) 
+            favoriteNode.classList.add('toggled');
         let deleteNode = document.createElement('button')
         deleteNode.classList.add('delete');
 
