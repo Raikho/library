@@ -7,14 +7,21 @@ const libraryNode = document.querySelector('.container.bottom')
 
 addBookButton.addEventListener('click', addBookToLibrary);
 
+document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete')) {
+        removeBookFromLibrary(e.target.parentNode.dataset.index);
+    }
+});
+
 let library = [];
 
-function Book(title, summary, pages) {
+function Book(title, summary, pages, index) {
     this.title = title;
     this.summary = summary;
     this.pages = pages;
     this.favorite = false;
     this.read = false;
+    this.index = index;
 }
 
 function addBookToLibrary() {
@@ -23,9 +30,17 @@ function addBookToLibrary() {
     if (title === '') return;
     resetInput();
 
-    library.push(new Book(title, summary, 100));
+    library.push(new Book(title, summary, 100, library.length));
     clearLibraryNode();
-    updateLibraryNode()
+    updateLibraryNode();
+}
+
+function removeBookFromLibrary(index) {
+    console.log(`removing index: ${index}`);
+    library.splice(index, 1);
+
+    clearLibraryNode();
+    updateLibraryNode();
 }
 
 function resetInput() {
@@ -61,6 +76,8 @@ function updateLibraryNode() {
         favoriteNode.classList.add('favorite');
         let deleteNode = document.createElement('button')
         deleteNode.classList.add('delete');
+
+        bookNode.dataset.index = book.index;
 
         bookNode.appendChild(titleNode);
         bookNode.appendChild(pagesNode);
