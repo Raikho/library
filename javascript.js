@@ -44,7 +44,31 @@ function updateLibraryNode() {
     for (let book of library) {
         let bookNode = document.createElement('div');
         bookNode.classList.add('card');
-        bookNode.textContent = book.title;
+        
+        let titleNode = document.createElement('div');
+        titleNode.classList.add('title');
+        titleNode.textContent = book.title;
+        let pagesNode = document.createElement('div');
+        pagesNode.classList.add('pages');
+        pagesNode.textContent = book.pages;
+        let summaryNode = document.createElement('div');
+        summaryNode.classList.add('summary');
+        summaryNode.textContent = book.summary;
+
+        let readNode = document.createElement('button')
+        readNode.classList.add('read');
+        let favoriteNode = document.createElement('button')
+        favoriteNode.classList.add('favorite');
+        let deleteNode = document.createElement('button')
+        deleteNode.classList.add('delete');
+
+        bookNode.appendChild(titleNode);
+        bookNode.appendChild(pagesNode);
+        bookNode.appendChild(summaryNode);
+        bookNode.appendChild(readNode);
+        bookNode.appendChild(favoriteNode);
+        bookNode.appendChild(deleteNode);
+
         libraryNode.appendChild(bookNode);
     }
 }
