@@ -1,14 +1,17 @@
 :root {
     --white: #f8fafc;
     --offwhite: #f0f9ff;
-    --gray: #94a3b8;
+    --gray: #cbd5e1;
     --accent1: #0ea5e9;
+    --accent1-light: #f0f9ff;
     --accent2: #eab308;
+    --black: #0f172a;
 }
 
 body {
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--black, black);
 
     width: 100vw;
     height: 100vh;
@@ -18,7 +21,7 @@ body {
 }
 
 .container.top {
-    background-color: var(--offwhite);
+    background-color: var(--white);
     box-shadow: 4px 4px 4px #0003;
     z-index: 1;
     padding: 20px;
@@ -42,9 +45,10 @@ label[for="summary"] {grid-area: summary-label;}
 textarea#summary {grid-area: summary-input;}
 button#add-book {grid-area: button;}
 
+input, textarea, button {border-radius: 5px;}
 input,
 textarea {
-    background-color: var(--white);
+    background-color: var(--accent1-light);
 }
 button {
     background-color: var(--accent1);
