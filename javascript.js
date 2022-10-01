@@ -21,6 +21,7 @@ function addBookToLibrary() {
     resetInput();
 
     library.push(new Book(title, summary));
+    clearLibraryNode();
     updateLibraryNode()
 }
 
@@ -35,6 +36,13 @@ function updateLibraryNode() {
         bookNode.classList.add('card');
         bookNode.textContent = book.title;
         libraryNode.appendChild(bookNode);
+    }
+}
+
+function clearLibraryNode() {
+    console.dir(libraryNode);
+    while (libraryNode.hasChildNodes()) {
+        libraryNode.removeChild(libraryNode.firstChild);
     }
 }
 
