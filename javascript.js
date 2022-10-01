@@ -7,7 +7,7 @@ const libraryNode = document.querySelector('.container.bottom')
 
 addBookButton.addEventListener('click', addBookToLibrary);
 
-let myLibrary = [];
+let library = [];
 
 function Book(title, summary) {
     this.title = title;
@@ -15,20 +15,26 @@ function Book(title, summary) {
 }
 
 function addBookToLibrary() {
-    let title = titleNode.value;
+    let title =  titleNode.value;
     let summary = summaryNode.value;
-    if (title === '')
-        return;
+    if (title === '') return;
+    resetInput();
+
+    library.push(new Book(title, summary));
+    updateLibraryNode()
+}
+
+function resetInput() {
     titleNode.value = '';
     summaryNode.value = '';
+}
 
-    let book = new Book(title, summary);
-
-    let bookNode = document.createElement('div');
-    bookNode.classList.add('card');
-    bookNode.textContent = book.title;
-    libraryNode.appendChild(bookNode);
-
-    console.dir(`title: ${title}, summary: ${summary}`);
+function updateLibraryNode() {
+    for (let book of library) {
+        let bookNode = document.createElement('div');
+        bookNode.classList.add('card');
+        bookNode.textContent = book.title;
+        libraryNode.appendChild(bookNode);
+    }
 }
 
