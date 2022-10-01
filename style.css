@@ -2,7 +2,7 @@
     --white: #f8fafc;
     --offwhite: #f0f9ff;
     --gray: #94a3b8;
-    --accent1: #0284c7;
+    --accent1: #0ea5e9;
     --accent2: #eab308;
 }
 
@@ -21,6 +21,36 @@ body {
     background-color: var(--offwhite);
     box-shadow: 4px 4px 4px #0003;
     z-index: 1;
+    padding: 20px;
+}
+
+.container.form {
+    width: 50%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 4fr;
+    grid-template-areas:
+        "title-label title-input button"
+        "summary-label summary-input .";
+    gap: 20px;
+}
+label[for="title"] {grid-area: title-label;}
+input#title {grid-area: title-input;}
+label[for="summary"] {grid-area: summary-label;}
+textarea#summary {grid-area: summary-input;}
+button#add-book {grid-area: button;}
+
+input,
+textarea {
+    background-color: var(--white);
+}
+button {
+    background-color: var(--accent1);
+    padding: 4px 8px;
+    color: var(--white);
+    font-weight: bold;
 }
 
 .container.bottom {
