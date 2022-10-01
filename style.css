@@ -74,4 +74,20 @@ button {
     border-left: 8px solid var(--accent2);
     padding: 10px;
     box-shadow: 4px 4px 4px #0003;
+
+    display: grid;
+    grid-template-columns: 1fr 20px 20px 20px;
+    grid-template-rows: 1fr 4fr 20px;
+    grid-template-areas:
+    "title title title title"
+    "summary summary summary summary"
+    ". read favorite delete";
+    gap: 10px;
 }
+.card>.title {grid-area: title;}
+.card>.summary {grid-area: summary;}
+.card>.read {grid-area: read;}
+.card>.favorite {grid-area: favorite;}
+.card>.delete {grid-area: delete;}
+
+.card>*{border: 1px dashed orangered;}

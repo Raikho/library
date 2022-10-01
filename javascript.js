@@ -9,9 +9,12 @@ addBookButton.addEventListener('click', addBookToLibrary);
 
 let library = [];
 
-function Book(title, summary) {
+function Book(title, summary, pages) {
     this.title = title;
     this.summary = summary;
+    this.pages = pages;
+    this.favorite = false;
+    this.read = false;
 }
 
 function addBookToLibrary() {
@@ -20,7 +23,7 @@ function addBookToLibrary() {
     if (title === '') return;
     resetInput();
 
-    library.push(new Book(title, summary));
+    library.push(new Book(title, summary, 100));
     clearLibraryNode();
     updateLibraryNode()
 }
@@ -30,19 +33,19 @@ function resetInput() {
     summaryNode.value = '';
 }
 
+function clearLibraryNode() {
+    console.dir(libraryNode);
+    while (libraryNode.hasChildNodes()) {
+        libraryNode.removeChild(libraryNode.firstChild);
+    }
+}
+
 function updateLibraryNode() {
     for (let book of library) {
         let bookNode = document.createElement('div');
         bookNode.classList.add('card');
         bookNode.textContent = book.title;
         libraryNode.appendChild(bookNode);
-    }
-}
-
-function clearLibraryNode() {
-    console.dir(libraryNode);
-    while (libraryNode.hasChildNodes()) {
-        libraryNode.removeChild(libraryNode.firstChild);
     }
 }
 
