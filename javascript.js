@@ -1,25 +1,33 @@
 console.log('Hello, World!');
 
-const titleElement = document.querySelector('#title');
-const summaryElement = document.querySelector('#summary');
+const titleNode = document.querySelector('#title');
+const summaryNode = document.querySelector('#summary');
 const addBookButton = document.querySelector('#add-book')
-const bookHolder = document.querySelector('.container.bottom')
+const libraryNode = document.querySelector('.container.bottom')
 
-addBookButton.addEventListener('click', addBook);
-console.log(titleElement.parentNode);
+addBookButton.addEventListener('click', addBookToLibrary);
 
-function addBook() {
-    let title = titleElement.value;
-    let summary = summaryElement.value;
+let myLibrary = [];
+
+function Book(title, summary) {
+    this.title = title;
+    this.summary = summary;
+}
+
+function addBookToLibrary() {
+    let title = titleNode.value;
+    let summary = summaryNode.value;
     if (title === '')
         return;
-    titleElement.value = '';
-    summaryElement.value = '';
+    titleNode.value = '';
+    summaryNode.value = '';
 
-    let book = document.createElement('div');
-    book.classList.add('card');
-    book.textContent = title;
-    bookHolder.appendChild(book);
+    let book = new Book(title, summary);
+
+    let bookNode = document.createElement('div');
+    bookNode.classList.add('card');
+    bookNode.textContent = book.title;
+    libraryNode.appendChild(bookNode);
 
     console.dir(`title: ${title}, summary: ${summary}`);
 }
