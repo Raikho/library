@@ -42,7 +42,7 @@ function Book(title, summary, pages, isRead, isFavorite, index) {
 function addBookToLibrary() {
     let title =  titleNode.value;
     let summary = summaryNode.value;
-    let pages = pagesNode.value;
+    let pages = Number(pagesNode.value);
     let isRead = readNode.checked;
     let isFavorite = favoriteNode.checked;
     if (title === '') return;
@@ -111,17 +111,17 @@ function getTotalBooks(isRead=false) {
     return sum;
 }
 
-function getTotalPages(isRead) {
-    let pages = 0;
+function getTotalPages(isRead=false) {
+    let sum = 0;
     for (let book of library) {
         if (isRead) {
             if (book.read)
-                pages += book.pages;
+                sum += book.pages;
         } else {
-            pages += book.pages;
+            sum += book.pages;
         }
     }
-    return pages;
+    return sum;
 }
 
 function resetInput() {
