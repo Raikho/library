@@ -74,6 +74,9 @@ function toggleFavorite(index) {
 function resetInput() {
     titleNode.value = '';
     summaryNode.value = '';
+    pagesNode.value = '';
+    readNode.checked = false;
+    favoriteNode.checked = false;
 }
 
 function updateIndicies() {

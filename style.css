@@ -47,7 +47,7 @@ body {
     padding: 20px;
     align-items: center;
 }
-button#add-book{
+button#add-book {
     grid-area: button;
     justify-self: center;
     font-weight: bold;
@@ -75,9 +75,11 @@ textarea {
     background-color: var(--accent1-light);
     border: 1px solid #0004;
     box-shadow: 2px 2px 2px #0002;
+    padding: 4px;
 }
 textarea {resize: none;}
 input[type="checkbox"] {width: 20px; height: 20px;}
+button#add-book:hover {filter: brightness(1.05);}
 
 .container.top {
     grid-area: top;
