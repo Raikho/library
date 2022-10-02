@@ -87,8 +87,27 @@ button#add-book:hover {filter: brightness(1.05);}
     background-color: var(--white);
     box-shadow: 4px 4px 4px #0003;
     z-index: 1;
-    padding: 20px;
+    padding: 40px;
+
+    display: grid;
+    grid-template-columns: max-content max-content 1fr max-content max-content;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "read-label read-checkbox . book-counter book-meter"
+        "favorite-label favorite-checkbox .  page-counter page-meter";
+    gap: 10px;
+    align-items: center;
 }
+label[for="show-only-read"] {grid-area: read-label;}
+input#show-only-fovorite {grid-area: read-checkbox;}
+label[for="show-only-favorite"] {grid-area: favorite-label;}
+input#show-only-favorite {grid-area: favorite-checkbox;}
+#book-counter {grid-area: book-counter;}
+#book-meter-container {grid-area: book-meter;}
+#page-counter {grid-area: page-counter;}
+#page-meter-container {grid-area: page-meter;}
+.container.top>label {justify-self: end;}
+
 .meter {
     height: 20px;
     width: 200px;
