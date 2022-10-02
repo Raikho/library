@@ -10,6 +10,9 @@ const pageCounterNode = document.getElementById('page-counter');
 const bookMeterNode = document.getElementById('book-meter');
 const pageMeterNode = document.getElementById('page-meter');
 
+const unreadOnlyNode = document.getElementById('show-only-unread');
+const favoriteOnlyNode = document.getElementById('show-only-favorite');
+
 const libraryNode = document.querySelector('.container.bottom')
 let library = [];
 
@@ -24,6 +27,14 @@ document.body.addEventListener('click', function(e) {
     }
     if (node.classList.contains('delete')) {
         removeBookFromLibrary(node.parentNode.dataset.index);
+    }
+    if (node.id === 'show-only-unread') {
+        clearLibraryNode();
+        updateLibraryNode();
+    }
+    if (node.id === 'show-only-favorite') {
+        clearLibraryNode();
+        updateLibraryNode();
     }
 });
 
@@ -147,6 +158,10 @@ function clearLibraryNode() {
 
 function updateLibraryNode() {
     for (let book of library) {
+
+        if (unreadOnlyNode.checked && book.read) continue;
+        if (favoriteOnlyNode.checked && !book.favorite) continue;
+
         let bookNode = document.createElement('div');
         bookNode.classList.add('card');
         
@@ -188,12 +203,12 @@ function addStarterBooks() {
     let title = "Harry Potter and the Sorcerer's Stone";
     let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
     let pages = 309;
-    library.push(new Book(title, summary, pages, true, true, library.length))
+    library.push(new Book(title, summary, pages, true, false, library.length))
     
     title = 'The Hobbit'
     summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
     pages = 300;
-    library.push(new Book(title, summary, pages, false, false, library.length));
+    library.push(new Book(title, summary, pages, false, true, library.length));
 
     clearLibraryNode();
     updateLibraryNode();
