@@ -45,6 +45,7 @@ body {
     "favorite-label favorite-input";
     gap: 20px;
     padding: 20px;
+    align-items: center;
 }
 button#add-book{
     grid-area: button;
@@ -76,8 +77,7 @@ textarea {
     box-shadow: 2px 2px 2px #0002;
 }
 textarea {resize: none;}
-input[type="checkbox"]:unchecked {background-color: red;}
-
+input[type="checkbox"] {width: 20px; height: 20px;}
 
 .container.top {
     grid-area: top;
