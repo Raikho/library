@@ -21,17 +21,25 @@
         <input type="checkbox" id="favorite">
     </div>
     <div class="container top">
-        <label for="show-only-unread">Show only unread books:</label>
-        <input type="checkbox" id="show-only-unread">
-        <label for="show-only-favorite">Show only favorited books:</label>
-        <input type="checkbox" id="show-only-favorite">
-        <div id="book-counter">Books Read: 0 / 2</div>
-        <div class="meter" id="book-meter-container">
-            <span style="width: 90%" id="book-meter"></span>
+        <div class="container toggles">
+            <label for="show-only-unread">
+                <span>Show only unread books:</span>
+                <input type="checkbox" id="show-only-unread">
+            </label>
+            <label for="show-only-favorite">
+                <span>Show only favorited books:</span>
+                <input type="checkbox" id="show-only-favorite">
+            </label>
         </div>
-        <div id="page-counter">Pages Read: 0 / 609</div>
-        <div class="meter" id="page-meter-container">
-            <span style="width: 25%" id="page-meter"></span>
+        <div class="container stats">
+                <div id="book-counter">Books Read: 0 / 2</div>
+                <div class="meter" id="book-meter-container">
+                    <span style="width: 90%" id="book-meter"></span>
+                </div>
+                <div id="page-counter">Pages Read: 0 / 609</div><!--  -->
+                <div class="meter" id="page-meter-container">
+                    <span style="width: 25%" id="page-meter"></span>
+                </div>
         </div>
     </div>
     <div class="container bottom">

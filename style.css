@@ -83,30 +83,42 @@ button#add-book:hover {filter: brightness(1.05);}
 
 .container.top {
     grid-area: top;
-
     background-color: var(--white);
     box-shadow: 4px 4px 4px #0003;
     z-index: 1;
-    padding: 40px;
+    padding: 10px;
 
-    display: grid;
-    grid-template-columns: max-content max-content 1fr max-content max-content;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-        "read-label read-checkbox . book-counter book-meter"
-        "favorite-label favorite-checkbox .  page-counter page-meter";
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
+}
+.container.toggles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+}
+.container.toggles>label {
+    display: flex;
     align-items: center;
 }
-label[for="show-only-read"] {grid-area: read-label;}
-input#show-only-fovorite {grid-area: read-checkbox;}
-label[for="show-only-favorite"] {grid-area: favorite-label;}
-input#show-only-favorite {grid-area: favorite-checkbox;}
-#book-counter {grid-area: book-counter;}
-#book-meter-container {grid-area: book-meter;}
-#page-counter {grid-area: page-counter;}
-#page-meter-container {grid-area: page-meter;}
-.container.top>label {justify-self: end;}
+.container.stats {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "book-counter book-meter"
+        "page-counter page-meter";
+    padding: 10px;
+    column-gap: 10px;
+    row-gap: 5px;
+}
+#book-counter {grid-area: book-counter; align-self: end;}
+#book-meter-container {grid-area: book-meter; align-self: end;}
+#page-counter {grid-area: page-counter; align-self: start;}
+#page-meter-container {grid-area: page-meter; align-self: start;}
 
 .meter {
     height: 20px;
