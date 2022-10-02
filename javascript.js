@@ -134,14 +134,14 @@ function updateLibraryNode() {
 
 
 function addStarterBooks() {
-    let title = 'Cool Book';
-    let summary = 'Detailed Summary of Book...';
-    let pages = 99;
+    let title = "Harry Potter and the Sorcerer's Stone";
+    let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
+    let pages = 309;
     library.push(new Book(title, summary, pages, library.length))
     
-    title = 'Another Book Title'
-    summary = 'This summary is longer and better...'
-    pages = 200;
+    title = 'The Hobbit'
+    summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
+    pages = 300;
     library.push(new Book(title, summary, pages, library.length));
 
     clearLibraryNode();
