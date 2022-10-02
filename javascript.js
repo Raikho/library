@@ -2,6 +2,9 @@ console.log('Hello, World!');
 
 const titleNode = document.querySelector('#title');
 const summaryNode = document.querySelector('#summary');
+const pagesNode = document.querySelector('#pages');
+const readNode = document.querySelector('#read');
+const favoriteNode = document.querySelector('#favorite');
 const addBookButton = document.querySelector('#add-book')
 const libraryNode = document.querySelector('.container.bottom')
 
@@ -22,22 +25,25 @@ document.body.addEventListener('click', function(e) {
 
 let library = [];
 
-function Book(title, summary, pages, index) {
+function Book(title, summary, pages, isRead, isFavorite, index) {
     this.title = title;
     this.summary = summary;
     this.pages = pages;
-    this.favorite = false;
-    this.read = false;
+    this.read = isRead;
+    this.favorite = isFavorite;
     this.index = index;
 }
 
 function addBookToLibrary() {
     let title =  titleNode.value;
     let summary = summaryNode.value;
+    let pages = pagesNode.value;
+    let isRead = readNode.checked;
+    let isFavorite = favoriteNode.checked;
     if (title === '') return;
     resetInput();
 
-    library.push(new Book(title, summary, 100, library.length));
+    library.push(new Book(title, summary, pages, isRead, isFavorite, library.length));
     clearLibraryNode();
     updateLibraryNode();
 }
