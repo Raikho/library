@@ -82,12 +82,23 @@ function toggleFavorite(index) {
 function updateStats() {
     let books = getTotalBooks();
     let booksRead = getTotalBooks(true);
+    let bookPercent = getPercent(booksRead, books);
     let pages = getTotalPages();
     let pagesRead = getTotalPages(true);
+    let pagePercent = getPercent(pagesRead, pages);
 
     bookCounterNode.textContent = `Books Read: ${booksRead} / ${books}`;
     pageCounterNode.textContent = `Pages Read: ${pagesRead} / ${pages}`;
+    bookMeterNode.attributes.style.value = `width: ${bookPercent}%`
+    pageMeterNode.attributes.style.value = `width: ${pagePercent}%`
 }
+
+function getPercent(a, b) {
+    if (b == 0) return 0;
+    let out = Math.round(a / b * 100);
+    return out;
+}
+
 
 function getTotalBooks(isRead=false) {
     if (!isRead) return library.length;
