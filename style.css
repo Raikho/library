@@ -19,10 +19,69 @@ body {
     height: 100vh;
     margin: 0;
     display: grid;
-    grid-template-rows: 25% 75%;
+    grid-template-columns: max(300px, 25%) 1fr;
+    grid-template-rows: 25% 1fr;
+    grid-template-areas: 
+        "sidebar top"
+        "sidebar bottom";
 }
 
+.container.sidebar {
+    grid-area: sidebar;
+    background-color: var(--accent1);
+    color: var(--white);
+
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: repeat(8, min-content);
+    grid-template-areas:
+    "button button"
+    "title-label title-label"
+    "title-input title-input"
+    "summary-label summary-label"
+    "summary-input summary-input"
+    "pages-label pages-input"
+    "read-label read-input"
+    "favorite-label favorite-input";
+    gap: 20px;
+    padding: 20px;
+}
+button#add-book{
+    grid-area: button;
+    justify-self: center;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: var(--accent2);
+    padding: 10px 20px;
+    color: var(--white);
+    font-weight: bold;
+    box-shadow: 2px 2px 2px #0003;
+}
+label[for="title"] {grid-area: title-label;}
+input#title {grid-area: title-input;}
+label[for="summary"] {grid-area: summary-label;}
+textarea#summary {grid-area: summary-input;}
+label[for="pages"] {grid-area: pages-label;}
+input#pages {grid-area: pages-input;}
+label[for="read"] {grid-area: read-label;}
+input#read {grid-area: read-input;}
+label[for="favorite"] {grid-area: favorite-label;}
+input#favorite {grid-area: favorite-input;}
+input[type="checkbox"] {justify-self: start;}
+input, textarea, button {border-radius: 5px;}
+input,
+textarea {
+    background-color: var(--accent1-light);
+    border: 1px solid #0004;
+    box-shadow: 2px 2px 2px #0002;
+}
+textarea {resize: none;}
+input[type="checkbox"]:unchecked {background-color: red;}
+
+
 .container.top {
+    grid-area: top;
+
     background-color: var(--white);
     box-shadow: 4px 4px 4px #0003;
     z-index: 1;
@@ -41,25 +100,9 @@ body {
         "summary-label summary-input .";
     gap: 20px;
 }
-label[for="title"] {grid-area: title-label;}
-input#title {grid-area: title-input;}
-label[for="summary"] {grid-area: summary-label;}
-textarea#summary {grid-area: summary-input;}
-button#add-book {grid-area: button;}
-
-input, textarea, button {border-radius: 5px;}
-input,
-textarea {
-    background-color: var(--accent1-light);
-}
-button#add-book {
-    background-color: var(--accent1);
-    padding: 4px 8px;
-    color: var(--white);
-    font-weight: bold;
-}
 
 .container.bottom {
+    grid-area: bottom;
     background-color: var(--gray);
 
     display: grid;
