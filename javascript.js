@@ -225,48 +225,57 @@ function addStarterBooks() {
 
 class Book2 {
     constructor(title, summary, pages, isRead, isFavorite, index) {
-        this.title = title;
-        this.summary = summary;
-        this.pages = pages;
-        this.read = isRead;
-        this.favorite = isFavorite;
         this.index = index;
 
-        this.cardNode = document.createElement('div');
-        this.cardNode.classList.add('card')
-        this.cardNode.dataset.index="0";
+        this.node = this.makeElement('div', 'card');
+        this.node.dataset.index="0";
 
-        this.titleNode = document.createElement('div');
-        this.titleNode.classList.add('title');
-        this.titleNode.textContent = title;
+        this.titleNode = this.makeElement('div', 'title');
+        this.title = title;
+        this.pagesNode = this.makeElement('div', 'pages');
+        this.pages = pages;
+        this.summaryNode = this.makeElement('div', 'summary');
+        this.summary = summary;
 
-        this.pagesNode = document.createElement('div');
-        this.pagesNode.classList.add('pages');
-        this.pagesNode.textContent = pages;
+        this.readNode = this.makeElement('button', 'read');
+        this.favoriteNode = this.makeElement('button', 'favorite');
+        this.deleteNode = this.makeElement('button', 'delete');
 
-        this.summaryNode = document.createElement('div');
-        this.summaryNode.classList.add('summary');
-        this.summaryNode.textContent = summary;
+        this.read = isRead;
+        this.favorite = isFavorite;
 
-        this.readNode = document.createElement('button');
-        this.readNode.classList.add('read', 'toggled');
-
-        this.favoriteNode = document.createElement('button');
-        this.favoriteNode.classList.add('favorite', 'toggled');
-
-        this.deleteNode = document.createElement('button');
-        this.deleteNode.classList.add('delete');
-
-        this.cardNode.appendChild(this.titleNode);
-        this.cardNode.appendChild(this.pagesNode);
-        this.cardNode.appendChild(this.summaryNode);
-        this.cardNode.appendChild(this.readNode);
-        this.cardNode.appendChild(this.favoriteNode);
-        this.cardNode.appendChild(this.deleteNode);
+        this.node.appendChild(this.titleNode);
+        this.node.appendChild(this.pagesNode);
+        this.node.appendChild(this.summaryNode);
+        this.node.appendChild(this.readNode);
+        this.node.appendChild(this.favoriteNode);
+        this.node.appendChild(this.deleteNode);
     }
+
+    get title() {return this.titleNode.textContent;}
+    set title(value) {this.titleNode.textContent = value;}
+    get summary() {return this.summaryNode.textContent;}
+    set summary(value) {this.summaryNode.textContent = value;}
+    get pages() {return Number(this.pagesNode.textContent);}
+    set pages(value) {this.pagesNode.textContent = value.toString();}
+    get read() {return this.readNode.classList.contains('toggled');}
+    set read(value) {
+        if (value === true) this.readNode.classList.add('toggled');
+        else this.readNode.classList.remove('toggled');
+    }
+    get favorite() {return this.favoriteNode.classList.contains('toggled');}
+    set favorite(value) {
+        if (value === true) this.favoriteNode.classList.add('toggled');
+        else this.favoriteNode.classList.remove('toggled');
+    }
+    makeElement(type, className) {
+        let node = document.createElement(type);
+        node.classList.add(className);
+        return node;
+    };
 }
 
-const book = new Book2('title', 'summary', 100);
-
-libraryNode.appendChild(book.cardNode);
-console.log('book node:', book.cardNode);
+const book = new Book2('Book Title', 'summary', 100, true, true);
+libraryNode.appendChild(book.node);
+console.log('book node:', book.node);
+console.log('title: ', book.title);
