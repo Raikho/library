@@ -17,24 +17,24 @@ const libraryNode = document.querySelector('.container.bottom')
 let library = [];
 
 addBookButton.addEventListener('click', addBookToLibrary);
-document.body.addEventListener('click', function(e) {
-    let node = e.target;
-    if (node.classList.contains('read')) {
-        toggleRead(node.parentNode.dataset.index);
-    }
-    if (node.classList.contains('favorite')) {
-        toggleFavorite(node.parentNode.dataset.index);
-    }
-    if (node.classList.contains('delete')) {
-        removeBookFromLibrary(node.parentNode.dataset.index);
-    }
-    if (node.id === 'show-only-unread') {
-        updateLibraryNode();
-    }
-    if (node.id === 'show-only-favorite') {
-        updateLibraryNode();
-    }
-});
+// document.body.addEventListener('click', function(e) {
+//     let node = e.target;
+//     if (node.classList.contains('read')) {
+//         toggleRead(node.parentNode.dataset.index);
+//     }
+//     if (node.classList.contains('favorite')) {
+//         toggleFavorite(node.parentNode.dataset.index);
+//     }
+//     if (node.classList.contains('delete')) {
+//         removeBookFromLibrary(node.parentNode.dataset.index);
+//     }
+//     if (node.id === 'show-only-unread') {
+//         updateLibraryNode();
+//     }
+//     if (node.id === 'show-only-favorite') {
+//         updateLibraryNode();
+//     }
+// });
 
 function Book(title, summary, pages, isRead, isFavorite, index) {
     this.title = title;
@@ -46,15 +46,14 @@ function Book(title, summary, pages, isRead, isFavorite, index) {
 }
 
 function addBookToLibrary() {
-    let title =  titleNode.value;
-    let summary = summaryNode.value;
-    let pages = Number(pagesNode.value);
+    let title =  titleNode.value || 'empty title';
+    let summary = summaryNode.value || 'empty summary';
+    let pages = Number(pagesNode.value) || '0';
     let isRead = readNode.checked;
     let isFavorite = favoriteNode.checked;
-    if (title === '') return;
     resetInput();
 
-    library.push(new Book2(title, summary, pages, isRead, isFavorite, library.length));
+    library.push(new Book2(title, summary, pages, isRead, isFavorite, library.length, library));
     updateLibraryNode();
     updateStats();
 }
@@ -141,31 +140,40 @@ function updateIndicies() {
 }
 
 function updateLibraryNode() {
+
+
     while (libraryNode.hasChildNodes())
         libraryNode.removeChild(libraryNode.firstChild);
+
     for (let book of library)
         libraryNode.appendChild(book.node);
+
+    for (let [index, book] of library.entries()) {
+        book.index = index;
+    }
 }
 
 function addStarterBooks() {
     let title = "Harry Potter and the Sorcerer's Stone";
     let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
     let pages = 309;
-    library.push(new Book2(title, summary, pages, true, false, library.length))
+    library.push(new Book2(title, summary, pages, true, false, library.length, library))
+
 
     title = 'The Hobbit'
     summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
     pages = 300;
-    library.push(new Book2(title, summary, pages, false, true, library.length));
+    library.push(new Book2(title, summary, pages, false, true, library.length, library));
 
     updateLibraryNode();
 }
 
 class Book2 {
-    constructor(title, summary, pages, isRead, isFavorite, index) {
+    constructor(title, summary, pages, isRead, isFavorite, index, library) {
         this.index = index;
+        this.library = library;
         this.node = this.makeElement('div', 'card');
-        this.node.dataset.index="0";
+        this.node.dataset.index=this.index;
 
         this.titleNode = this.makeElement('div', 'title', title);
         this.pagesNode = this.makeElement('div', 'pages', pages);
@@ -183,6 +191,18 @@ class Book2 {
         this.node.appendChild(this.readNode);
         this.node.appendChild(this.favoriteNode);
         this.node.appendChild(this.deleteNode);
+
+        this.readNode.addEventListener('click', () => {
+            this.read = !this.read;
+        });
+        this.favoriteNode.addEventListener('click', () => {
+            this.favorite = !this.favorite;
+        });
+        this.deleteNode.addEventListener('click', () => {
+            console.log(`${this.title} is being deleted from ${this.index} index`);
+            this.library.splice(this.index, 1);
+            updateLibraryNode();
+        });
     }
 
     get title() {return this.titleNode.textContent;}
@@ -213,4 +233,5 @@ class Book2 {
 
 addStarterBooks();
 updateStats();
+console.log(library);
 
