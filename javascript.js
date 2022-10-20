@@ -113,7 +113,7 @@ function getPercent(a, b) {
 
 function getTotalBooks(isRead=false) {
     if (!isRead) return library.length;
-    
+
     let sum = 0;
     for (let book of library) {
         if (book.read)
@@ -164,7 +164,7 @@ function updateLibraryNode() {
 
         let bookNode = document.createElement('div');
         bookNode.classList.add('card');
-        
+
         let titleNode = document.createElement('div');
         titleNode.classList.add('title');
         titleNode.textContent = book.title;
@@ -177,11 +177,11 @@ function updateLibraryNode() {
 
         let readNode = document.createElement('button')
         readNode.classList.add('read');
-        if(book.read) 
+        if(book.read)
             readNode.classList.add('toggled');
         let favoriteNode = document.createElement('button')
         favoriteNode.classList.add('favorite');
-        if(book.favorite) 
+        if(book.favorite)
             favoriteNode.classList.add('toggled');
         let deleteNode = document.createElement('button')
         deleteNode.classList.add('delete');
@@ -204,7 +204,7 @@ function addStarterBooks() {
     let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
     let pages = 309;
     library.push(new Book(title, summary, pages, true, false, library.length))
-    
+
     title = 'The Hobbit'
     summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
     pages = 300;
@@ -213,3 +213,60 @@ function addStarterBooks() {
     clearLibraryNode();
     updateLibraryNode();
 }
+
+
+// div.card[data-index="0"]
+//  div.title{Dummy Title}
+//  div.pages{100pg}
+//  div.summary{Dummy Summary}
+//  button.read.toggled
+//  button.favorite.toggled
+//  button.delete
+
+class Book2 {
+    constructor(title, summary, pages, isRead, isFavorite, index) {
+        this.title = title;
+        this.summary = summary;
+        this.pages = pages;
+        this.read = isRead;
+        this.favorite = isFavorite;
+        this.index = index;
+
+        this.cardNode = document.createElement('div');
+        this.cardNode.classList.add('card')
+        this.cardNode.dataset.index="0";
+
+        this.titleNode = document.createElement('div');
+        this.titleNode.classList.add('title');
+        this.titleNode.textContent = title;
+
+        this.pagesNode = document.createElement('div');
+        this.pagesNode.classList.add('pages');
+        this.pagesNode.textContent = pages;
+
+        this.summaryNode = document.createElement('div');
+        this.summaryNode.classList.add('summary');
+        this.summaryNode.textContent = summary;
+
+        this.readNode = document.createElement('button');
+        this.readNode.classList.add('read', 'toggled');
+
+        this.favoriteNode = document.createElement('button');
+        this.favoriteNode.classList.add('favorite', 'toggled');
+
+        this.deleteNode = document.createElement('button');
+        this.deleteNode.classList.add('delete');
+
+        this.cardNode.appendChild(this.titleNode);
+        this.cardNode.appendChild(this.pagesNode);
+        this.cardNode.appendChild(this.summaryNode);
+        this.cardNode.appendChild(this.readNode);
+        this.cardNode.appendChild(this.favoriteNode);
+        this.cardNode.appendChild(this.deleteNode);
+    }
+}
+
+const book = new Book2('title', 'summary', 100);
+
+libraryNode.appendChild(book.cardNode);
+console.log('book node:', book.cardNode);
