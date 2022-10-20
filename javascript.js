@@ -29,17 +29,12 @@ document.body.addEventListener('click', function(e) {
         removeBookFromLibrary(node.parentNode.dataset.index);
     }
     if (node.id === 'show-only-unread') {
-        clearLibraryNode();
         updateLibraryNode();
     }
     if (node.id === 'show-only-favorite') {
-        clearLibraryNode();
         updateLibraryNode();
     }
 });
-
-addStarterBooks();
-updateStats();
 
 function Book(title, summary, pages, isRead, isFavorite, index) {
     this.title = title;
@@ -59,8 +54,7 @@ function addBookToLibrary() {
     if (title === '') return;
     resetInput();
 
-    library.push(new Book(title, summary, pages, isRead, isFavorite, library.length));
-    clearLibraryNode();
+    library.push(new Book2(title, summary, pages, isRead, isFavorite, library.length));
     updateLibraryNode();
     updateStats();
 }
@@ -70,7 +64,6 @@ function removeBookFromLibrary(index) {
     library.splice(index, 1);
 
     updateIndicies();
-    clearLibraryNode();
     updateLibraryNode();
     updateStats();
 }
@@ -78,7 +71,6 @@ function removeBookFromLibrary(index) {
 function toggleRead(index) {
     let book = library[index];
     book.read = !book.read;
-    clearLibraryNode();
     updateLibraryNode();
     updateStats();
 }
@@ -86,7 +78,6 @@ function toggleRead(index) {
 function toggleFavorite(index) {
     let book = library[index];
     book.favorite = !book.favorite;
-    clearLibraryNode();
     updateLibraryNode();
 }
 
@@ -109,7 +100,6 @@ function getPercent(a, b) {
     let out = Math.round(a / b * 100);
     return out;
 }
-
 
 function getTotalBooks(isRead=false) {
     if (!isRead) return library.length;
@@ -150,93 +140,36 @@ function updateIndicies() {
     }
 }
 
-function clearLibraryNode() {
-    while (libraryNode.hasChildNodes()) {
-        libraryNode.removeChild(libraryNode.firstChild);
-    }
-}
-
 function updateLibraryNode() {
-    for (let book of library) {
-
-        if (unreadOnlyNode.checked && book.read) continue;
-        if (favoriteOnlyNode.checked && !book.favorite) continue;
-
-        let bookNode = document.createElement('div');
-        bookNode.classList.add('card');
-
-        let titleNode = document.createElement('div');
-        titleNode.classList.add('title');
-        titleNode.textContent = book.title;
-        let pagesNode = document.createElement('div');
-        pagesNode.classList.add('pages');
-        pagesNode.textContent = book.pages + 'pg';
-        let summaryNode = document.createElement('div');
-        summaryNode.classList.add('summary');
-        summaryNode.textContent = book.summary;
-
-        let readNode = document.createElement('button')
-        readNode.classList.add('read');
-        if(book.read)
-            readNode.classList.add('toggled');
-        let favoriteNode = document.createElement('button')
-        favoriteNode.classList.add('favorite');
-        if(book.favorite)
-            favoriteNode.classList.add('toggled');
-        let deleteNode = document.createElement('button')
-        deleteNode.classList.add('delete');
-
-        bookNode.dataset.index = book.index;
-
-        bookNode.appendChild(titleNode);
-        bookNode.appendChild(pagesNode);
-        bookNode.appendChild(summaryNode);
-        bookNode.appendChild(readNode);
-        bookNode.appendChild(favoriteNode);
-        bookNode.appendChild(deleteNode);
-
-        libraryNode.appendChild(bookNode);
-    }
+    while (libraryNode.hasChildNodes())
+        libraryNode.removeChild(libraryNode.firstChild);
+    for (let book of library)
+        libraryNode.appendChild(book.node);
 }
 
 function addStarterBooks() {
     let title = "Harry Potter and the Sorcerer's Stone";
     let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
     let pages = 309;
-    library.push(new Book(title, summary, pages, true, false, library.length))
+    library.push(new Book2(title, summary, pages, true, false, library.length))
 
     title = 'The Hobbit'
     summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
     pages = 300;
-    library.push(new Book(title, summary, pages, false, true, library.length));
+    library.push(new Book2(title, summary, pages, false, true, library.length));
 
-    clearLibraryNode();
     updateLibraryNode();
 }
-
-
-// div.card[data-index="0"]
-//  div.title{Dummy Title}
-//  div.pages{100pg}
-//  div.summary{Dummy Summary}
-//  button.read.toggled
-//  button.favorite.toggled
-//  button.delete
 
 class Book2 {
     constructor(title, summary, pages, isRead, isFavorite, index) {
         this.index = index;
-
         this.node = this.makeElement('div', 'card');
         this.node.dataset.index="0";
 
-        this.titleNode = this.makeElement('div', 'title');
-        this.title = title;
-        this.pagesNode = this.makeElement('div', 'pages');
-        this.pages = pages;
-        this.summaryNode = this.makeElement('div', 'summary');
-        this.summary = summary;
-
+        this.titleNode = this.makeElement('div', 'title', title);
+        this.pagesNode = this.makeElement('div', 'pages', pages);
+        this.summaryNode = this.makeElement('div', 'summary', summary);
         this.readNode = this.makeElement('button', 'read');
         this.favoriteNode = this.makeElement('button', 'favorite');
         this.deleteNode = this.makeElement('button', 'delete');
@@ -268,14 +201,16 @@ class Book2 {
         if (value === true) this.favoriteNode.classList.add('toggled');
         else this.favoriteNode.classList.remove('toggled');
     }
-    makeElement(type, className) {
+
+    makeElement(type, className, textContent) {
         let node = document.createElement(type);
         node.classList.add(className);
+        if (textContent)
+            node.textContent = textContent;
         return node;
     };
 }
 
-const book = new Book2('Book Title', 'summary', 100, true, true);
-libraryNode.appendChild(book.node);
-console.log('book node:', book.node);
-console.log('title: ', book.title);
+addStarterBooks();
+updateStats();
+
