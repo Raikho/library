@@ -18,10 +18,11 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
+
     display: grid;
-    grid-template-columns: max(300px, 25%) 1fr;
-    grid-template-rows: 25% 1fr;
-    grid-template-areas: 
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 3fr;
+    grid-template-areas:
         "sidebar top"
         "sidebar bottom";
 }
@@ -29,196 +30,14 @@ body {
 .container.sidebar {
     grid-area: sidebar;
     background-color: var(--accent1);
-    color: var(--white);
-
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: repeat(8, min-content);
-    grid-template-areas:
-    "button button"
-    "title-label title-label"
-    "title-input title-input"
-    "summary-label summary-label"
-    "summary-input summary-input"
-    "pages-label pages-input"
-    "read-label read-input"
-    "favorite-label favorite-input";
-    gap: 20px;
-    padding: 20px;
-    align-items: center;
 }
-button#add-book {
-    grid-area: button;
-    justify-self: center;
-    font-weight: bold;
-    font-size: 18px;
-    background-color: var(--accent2);
-    padding: 10px 20px;
-    color: var(--white);
-    font-weight: bold;
-    box-shadow: 2px 2px 2px #0003;
-}
-label[for="title"] {grid-area: title-label;}
-input#title {grid-area: title-input;}
-label[for="summary"] {grid-area: summary-label;}
-textarea#summary {grid-area: summary-input;}
-label[for="pages"] {grid-area: pages-label;}
-input#pages {grid-area: pages-input;}
-label[for="read"] {grid-area: read-label;}
-input#read {grid-area: read-input;}
-label[for="favorite"] {grid-area: favorite-label;}
-input#favorite {grid-area: favorite-input;}
-input[type="checkbox"] {justify-self: start;}
-input, textarea, button {border-radius: 5px;}
-input,
-textarea {
-    background-color: var(--accent1-light);
-    border: 1px solid #0004;
-    box-shadow: 2px 2px 2px #0002;
-    padding: 4px;
-}
-textarea {resize: none;}
-input[type="checkbox"] {width: 20px; height: 20px;}
-button#add-book:hover {filter: brightness(1.05);}
 
 .container.top {
     grid-area: top;
-    background-color: var(--white);
-    box-shadow: 4px 4px 4px #0003;
-    z-index: 1;
-    padding: 10px;
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.container.toggles {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: end;
-}
-.container.toggles>label {
-    display: flex;
-    align-items: center;
-}
-.container.stats {
-    flex: 1;
-
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-        "book-counter book-meter"
-        "page-counter page-meter";
-    padding: 10px;
-    column-gap: 10px;
-    row-gap: 5px;
-}
-#book-counter {grid-area: book-counter; align-self: end;}
-#book-meter-container {grid-area: book-meter; align-self: end;}
-#page-counter {grid-area: page-counter; align-self: start;}
-#page-meter-container {grid-area: page-meter; align-self: start;}
-
-.meter {
-    height: 20px;
-    width: 200px;
     background-color: var(--offwhite);
-    border: 1px solid var(--black);
-    border-radius: 20px;
-    padding: 3px;
-    box-shadow: inset 0 -2px 2px #0003;
-}
-.meter > span {
-    display: block;
-    height: 100%;
-    background-color: var(--accent1);
-    border-radius: 20px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 
-        inset 0 2px 9px #fff3,
-        inset 0 -2px 6px #0003;
-    overflow: hidden;
 }
 
 .container.bottom {
     grid-area: bottom;
     background-color: var(--gray);
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    z-index: 0;
 }
-
-.card {
-    background-color: var(--white);
-    height: 200px;
-    border-radius: 10px;
-    border-left: 8px solid var(--accent2);
-    padding: 10px;
-    box-shadow: 4px 4px 4px #0003;
-
-    display: grid;
-    grid-template-columns: 1fr 20px 20px 20px;
-    grid-template-rows: 1fr 4fr 20px;
-    grid-template-areas:
-    "title pages pages pages"
-    "summary summary summary summary"
-    ". read favorite delete";
-    gap: 10px;
-}
-.card>.title {
-    grid-area: title;
-    font-weight: 700;
-}
-.card>.pages {
-    grid-area: pages;
-    justify-self: end;
-    opacity: 0.5;
-}
-.card>.summary {
-    grid-area: summary;
-    color: var(--offblack);
-    font-size: 16px;
-    overflow: auto;
-}
-.card>.read {grid-area: read;}
-.card>.favorite {grid-area: favorite;}
-.card>.delete {grid-area: delete;}
-
-.read {
-    -webkit-mask-image: url(img/eye-outline.svg);
-    mask-image: url(img/eye-outline.svg);
-    background-color: var(--black);
-    opacity: 0.5;
-}
-.favorite {
-    -webkit-mask-image: url(img/star-outline.svg);
-    mask-image: url(img/star-outline.svg);
-    background-color: var(--black);
-    opacity: 0.5;
-}
-.delete {
-    -webkit-mask-image: url(img/close-circle.svg);
-    mask-image: url(img/close-circle.svg);
-    background-color: var(--red);
-    opacity: 0.5;
-}
-.read.toggled {
-    -webkit-mask-image: url(img/eye.svg);
-    mask-image: url(img/eye.svg);
-}
-.favorite.toggled {
-    -webkit-mask-image: url(img/star.svg);
-    mask-image: url(img/star.svg);
-}
-.read:hover,
-.favorite:hover,
-.delete:hover {
-    opacity: 1;
-}
-.read.toggled {background-color: green;}
-.favorite.toggled {background-color: darkgoldenrod;}
