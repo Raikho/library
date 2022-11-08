@@ -9,24 +9,32 @@
 <body>
     <div class="container sidebar">
         <button id="add-book" class="double" >Add Book</button>
-
         <label for="title" class="double">Title:</label>
         <input type="text" id="title" class="double">
-
         <label for="summary" class="double">Summary:</label>
         <textarea id="summary" cols="5" rows="5" class="double"></textarea>
-
         <label for="pages">Pages:</label>
         <input type="number" id="pages">
-
         <label for="read">Read:</label>
         <input type="checkbox" id="read">
-
         <label for="favorite">Favorite:</label>
         <input type="checkbox" id="favorite">
     </div>
 
     <div class="container top">
+        <label for="show-unread">Show only unread books:</label>
+        <input type="checkbox" id="show-unread">
+        <label for="show-favorite">Show only favorited books:</label>
+        <input type="checkbox" id="show-favorite">
+
+        <div id="book-counter">Books Read: 0 / 1</div>
+        <div class="container meter">
+            <span id="book-meter">meter1</span>
+        </div>
+        <div id="page-counter">Pages Read: 0 / 1</div>
+        <div class="container meter">
+            <span id="page-meter">meter2</span>
+        </div>
     </div>
 
     <div class="container bottom">
