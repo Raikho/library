@@ -27,19 +27,34 @@ body {
         "sidebar bottom";
 }
 
+/* ============================ Sidebar ============================ */
+/* ================================================================= */
 .container.sidebar {
     grid-area: sidebar;
     background-color: var(--accent1);
+    color: var(--white);
 
-    display: flex;
-    flex-direction: column;;
+    padding: 1rem;
+
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: repeat(8, min-content);
+    gap: 1rem;
 }
+.sidebar>.double {grid-column: span 2;}
+.sidebar>button {justify-self: center;}
+.sidebar>input[type="checkbox"] {justify-self: start;}
 
+
+/* ============================== Top ============================== */
+/* ================================================================= */
 .container.top {
     grid-area: top;
     background-color: var(--offwhite);
 }
 
+/* ============================== Bot ============================== */
+/* ================================================================= */
 .container.bottom {
     grid-area: bottom;
     background-color: var(--gray);

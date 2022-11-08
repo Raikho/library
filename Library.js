@@ -14,9 +14,9 @@ export class Library {
 }
 
 export class Book {
-    constructor(state) {
-        this.title = 'empty title';
-        // this.summary = state.summary || 'empty summary';
+    constructor(title, summary, pages, isRead, isFavorite) {
+        this.title = title;
+        // this.summary = state.summary;
         // this.pages = state.pages;
         // this.read = state.read;
         // this.favorite = state.favorite;

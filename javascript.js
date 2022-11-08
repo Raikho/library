@@ -1,9 +1,6 @@
 import {Library, Book} from "./Library.js"
 
-let state = {
-    title: 'The Title',
-};
-let book = new Book(state);
+let book = new Book('The Title');
 let library = new Library();
 
 console.log(book.print());
