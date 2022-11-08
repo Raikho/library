@@ -58,4 +58,17 @@ body {
 .container.bottom {
     grid-area: bottom;
     background-color: var(--gray);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+.card {
+    background-color: var(--white);
+    height: 200px;
+    border-radius: 10px;
+    border-left: 8px solid var(--accent2);
+    padding: 10px;
+    box-shadow: 4px 4px 4px #0003;
 }
