@@ -1,6 +1,7 @@
 export class Library {
     constructor() {
         this.array = [];
+        this.node = document.querySelector('.container.bottom');
 
         this.addBookNode = document.getElementById('add-book');
         this.titleNode = document.getElementById('title');
@@ -21,7 +22,9 @@ export class Library {
         let isFavorite = this.favoriteNode.checked;
         this.#resetInput();
 
-        this.array.push(new Book(title, summary, pages, isRead, isFavorite));
+        this.array.push(new Book(
+            title, summary, pages, isRead, isFavorite,
+            this.#addNode.bind(this)));
         console.log('array:', this.array);
     }
     #resetInput() {
@@ -31,10 +34,14 @@ export class Library {
         this.readNode.checked = false;
         this.favoriteNode.checked = false;
     }
+    #addNode(childNode) {
+        console.log('node was added, "this" is:', this);
+        this.node.append(childNode);
+    }
 }
 
 export class Book {
-    constructor(title, summary, pages, isRead, isFavorite) {
+    constructor(title, summary, pages, isRead, isFavorite, addNodeFunc) {
         this.title = title;
         this.summary = summary;
         this.pages = pages;
@@ -50,6 +57,12 @@ export class Book {
         this.readNode = this.#makeElement('button', 'read');
         this.favoriteNode = this.#makeElement('button', 'favorite');
         this.deleteNode = this.#makeElement('button', 'delete');
+
+        this.readNode.classList.add('svg');
+        this.favoriteNode.classList.add('svg');
+        this.deleteNode.classList.add('svg');
+
+        addNodeFunc(this.node);
     }
     #makeElement(type, className, textContent) {
         let childNode = document.createElement(type);
