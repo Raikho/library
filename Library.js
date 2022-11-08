@@ -9,46 +9,54 @@ export class Library {
         this.readNode = document.getElementById('read');
         this.favoriteNode = document.getElementById('favorite');
 
-        this.addBookNode.addEventListener('click', this.addBook.bind(this));
+        this.addBookNode.addEventListener('click', this.#addBook.bind(this));
 
         console.log('constructing library...');
     }
-    addBook() {
+    #addBook() {
         let title = this.titleNode.value || 'empty';
         let summary = this.summaryNode.value || 'empty';
         let pages = Number(this.pagesNode.value) || 0;
         let isRead = this.readNode.checked;
         let isFavorite = this.favoriteNode.checked;
-        this.resetInput();
+        this.#resetInput();
 
-        console.log('adding book =>',{title, summary, pages, isRead, isFavorite});
+        this.array.push(new Book(title, summary, pages, isRead, isFavorite));
+        console.log('array:', this.array);
     }
-    resetInput() {
+    #resetInput() {
         this.titleNode.value = '';
         this.summaryNode.value = '';
         this.pagesNode.value = '';
         this.readNode.checked = false;
         this.favoriteNode.checked = false;
     }
-    print() {
-        let out = 'Library: ';
-        for (let book of this.array) {
-            out += book.print();
-            out += ',';
-        }
-        return out;
-    }
 }
 
 export class Book {
     constructor(title, summary, pages, isRead, isFavorite) {
         this.title = title;
-        // this.summary = state.summary;
-        // this.pages = state.pages;
-        // this.read = state.read;
-        // this.favorite = state.favorite;
+        this.summary = summary;
+        this.pages = pages;
+        this.isRead = isRead;
+        this.isFavorite = isFavorite;
+
+        this.node = document.createElement('div');
+        this.node.classList.add('card');
+
+        this.titleNode = this.#makeElement('div', 'title', title);
+        this.pagesNode = this.#makeElement('div', 'pages', pages);
+        this.summaryNode = this.#makeElement('div', 'summary', summary);
+        this.readNode = this.#makeElement('button', 'read');
+        this.favoriteNode = this.#makeElement('button', 'favorite');
+        this.deleteNode = this.#makeElement('button', 'delete');
     }
-    print() {
-        return `Book: ${this.title}`;
+    #makeElement(type, className, textContent) {
+        let childNode = document.createElement(type);
+        childNode.classList.add(className);
+        if (textContent)
+            childNode.textContent = textContent;
+        this.node.appendChild(childNode);
+        return childNode;
     }
 }
