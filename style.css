@@ -71,4 +71,45 @@ body {
     border-left: 8px solid var(--accent2);
     padding: 10px;
     box-shadow: 4px 4px 4px #0003;
+
+    display: grid;
+    grid-template-columns: 1fr 20px 20px 20px;
+    grid-template-rows: 1fr 4fr 20px;
+    grid-template-areas:
+    "title pages pages pages"
+    "summary summary summary summary"
+    ". read favorite delete";
+    gap: 10px;
+}
+.card>.title {grid-area: title; font-weight: 700;}
+.card>.pages {grid-area: pages; justify-self: end; opacity: 0.5;}
+.card>.summary {
+    grid-area: summary;
+    color: var(--offblack);
+    font-size: 16px;
+    overflow: auto;
+}
+.card>.svg {background-color: var(--black); opacity: 0.5;}
+.card>.read {
+    grid-area: read;
+    -webkit-mask-image: url(img/eye-outline.svg);
+    mask-image: url(img/eye-outline.svg);
+}
+.card>.favorite {
+    grid-area: favorite;
+    -webkit-mask-image: url(img/star-outline.svg);
+    mask-image: url(img/star-outline.svg);
+}
+.card>.delete {
+    grid-area: delete;
+    -webkit-mask-image: url(img/close-circle.svg);
+    mask-image: url(img/close-circle.svg);
+}
+.card>.read.toggled {
+    -webkit-mask-image: url(img/eye.svg);
+    mask-image: url(img/eye.svg);
+}
+.card>.favorite.toggled {
+    -webkit-mask-image: url(img/star.svg);
+    mask-image: url(img/star.svg);
 }
