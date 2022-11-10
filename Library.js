@@ -9,8 +9,17 @@ export class Library {
         this.pagesNode = document.getElementById('pages');
         this.readNode = document.getElementById('read');
         this.favoriteNode = document.getElementById('favorite');
-
         this.addBookNode.addEventListener('click', this.#addBook.bind(this));
+
+        this.showUnreadNode = document.getElementById('show-unread');
+        this.showFavoriteNode = document.getElementById('show-favorite');
+
+        this.showUnreadNode.addEventListener('click', () => {
+            this.#updateLibraryNode();
+        });
+        this.showFavoriteNode.addEventListener('click', () => {
+            this.#updateLibraryNode();
+        });
 
         this.#addStartingBooks();
         this.#updateLibraryNode();
@@ -25,7 +34,7 @@ export class Library {
 
         this.books.push(new Book(
             title, summary, pages, isRead, isFavorite,
-            this.books.length, this.#deleteBook));
+            this.books.length, this.#deleteBook, this.#updateLibraryNode));
 
         this.#updateLibraryNode();
     }
@@ -42,11 +51,18 @@ export class Library {
         this.#updateIndicies();
         this.#updateLibraryNode();
     }
-    #updateLibraryNode(filterReadBooks, filterFavoriteBooks) {
+    #updateLibraryNode = () => {
         while (this.node.hasChildNodes())
-            this.node.removeChild(this.node.firstChild);
-        for (let book of this.books)
+        this.node.removeChild(this.node.firstChild);
+
+        let isOnlyUnread = this.showUnreadNode.checked;
+        let isOnlyFavorite = this.showFavoriteNode.checked;
+
+        for (let book of this.books) {
+            if (isOnlyUnread && book.isRead == true) continue;
+            if (isOnlyFavorite && book.isFavorite == false) continue;
             this.node.appendChild(book.node);
+        }
     }
     #updateIndicies() {
         for (let i=0; i<this.books.length; i++) {
@@ -61,18 +77,18 @@ export class Library {
         let pages = 309;
         this.books.push(new Book(
             title, summary, pages, true, false,
-            this.books.length, this.#deleteBook));
+            this.books.length, this.#deleteBook, this.#updateLibraryNode));
         title = 'The Hobbit';
         summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
         pages = 300;
         this.books.push(new Book(
             title, summary, pages, false, true,
-            this.books.length, this.#deleteBook));
+            this.books.length, this.#deleteBook, this.#updateLibraryNode));
     }
 }
 
 export class Book {
-    constructor(title, summary, pages, isRead, isFavorite, index, deleteCallback) {
+    constructor(title, summary, pages, isRead, isFavorite, index, deleteCallback, updateCallback) {
         this.title = title;
         this.summary = summary;
         this.pages = pages;
@@ -99,8 +115,16 @@ export class Book {
         if (this.isFavorite)
             this.#toggle(this.favoriteNode);
 
-        this.readNode.addEventListener('click', () => this.#toggle(this.readNode));
-        this.favoriteNode.addEventListener('click', () => this.#toggle(this.favoriteNode));
+        this.readNode.addEventListener('click', () => {
+            this.#toggle(this.readNode);
+            this.isRead = this.readNode.classList.contains('toggled');
+            updateCallback();
+        });
+        this.favoriteNode.addEventListener('click', () => {
+            this.#toggle(this.favoriteNode);
+            this.isFavorite = this.favoriteNode.classList.contains('toggled');
+            updateCallback();
+        });
         this.deleteNode.addEventListener('click', () => deleteCallback(this.index));
     }
     #makeElement(type, className, textContent) {
