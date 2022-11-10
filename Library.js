@@ -1,6 +1,6 @@
 export class Library {
     constructor() {
-        this.array = [];
+        this.books = [];
         this.node = document.querySelector('.container.bottom');
 
         this.addBookNode = document.getElementById('add-book');
@@ -13,6 +13,13 @@ export class Library {
         this.addBookNode.addEventListener('click', this.#addBook.bind(this));
 
         console.log('constructing library...');
+        this.#addBook();
+        this.#addBook();
+        this.#addBook();
+        this.#addBook();
+        this.#addBook();
+
+        this.#updateLibraryNode();
     }
     #addBook() {
         let title = this.titleNode.value || 'empty';
@@ -22,10 +29,11 @@ export class Library {
         let isFavorite = this.favoriteNode.checked;
         this.#resetInput();
 
-        this.array.push(new Book(
+        this.books.push(new Book(
             title, summary, pages, isRead, isFavorite,
-            this.#addNode.bind(this)));
-        console.log('array:', this.array);
+            this.books.length, this.#deleteNode.bind(this)));
+
+        this.#updateLibraryNode();
     }
     #resetInput() {
         this.titleNode.value = '';
@@ -34,19 +42,34 @@ export class Library {
         this.readNode.checked = false;
         this.favoriteNode.checked = false;
     }
-    #addNode(childNode) {
-        console.log('node was added, "this" is:', this);
-        this.node.append(childNode);
+    #deleteNode(index) {
+        console.log(`callback on index ${index}`);
+        this.books.splice(index, 1);
+        this.#updateIndicies();
+        this.#updateLibraryNode();
+    }
+    #updateLibraryNode(filterReadBooks, filterFavoriteBooks) {
+        while (this.node.hasChildNodes())
+            this.node.removeChild(this.node.firstChild);
+        for (let book of this.books)
+            this.node.appendChild(book.node);
+    }
+    #updateIndicies() {
+        for (let i=0; i<this.books.length; i++) {
+            let book = this.books[i];
+            book.index = i;
+        }
     }
 }
 
 export class Book {
-    constructor(title, summary, pages, isRead, isFavorite, addNodeFunc) {
+    constructor(title, summary, pages, isRead, isFavorite, index, deleteCallback) {
         this.title = title;
         this.summary = summary;
         this.pages = pages;
         this.isRead = isRead;
         this.isFavorite = isFavorite;
+        this.index = index;
 
         this.node = document.createElement('div');
         this.node.classList.add('card');
@@ -62,7 +85,7 @@ export class Book {
         this.favoriteNode.classList.add('svg');
         this.deleteNode.classList.add('svg');
 
-        addNodeFunc(this.node);
+        this.deleteNode.addEventListener('click', () => deleteCallback(this.index));
     }
     #makeElement(type, className, textContent) {
         let childNode = document.createElement(type);
