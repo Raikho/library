@@ -31,7 +31,7 @@ export class Library {
 
         this.books.push(new Book(
             title, summary, pages, isRead, isFavorite,
-            this.books.length, this.#deleteNode.bind(this)));
+            this.books.length, this.#deleteNode));
 
         this.#updateLibraryNode();
     }
@@ -42,7 +42,7 @@ export class Library {
         this.readNode.checked = false;
         this.favoriteNode.checked = false;
     }
-    #deleteNode(index) {
+    #deleteNode = (index) => {
         console.log(`callback on index ${index}`);
         this.books.splice(index, 1);
         this.#updateIndicies();
