@@ -12,13 +12,7 @@ export class Library {
 
         this.addBookNode.addEventListener('click', this.#addBook.bind(this));
 
-        console.log('constructing library...');
-        this.#addBook();
-        this.#addBook();
-        this.#addBook();
-        this.#addBook();
-        this.#addBook();
-
+        this.#addStartingBooks();
         this.#updateLibraryNode();
     }
     #addBook() {
@@ -59,6 +53,21 @@ export class Library {
             let book = this.books[i];
             book.index = i;
         }
+    }
+
+    #addStartingBooks() {
+        let title = "Harry Potter and the Sorcerer's Stone";
+        let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
+        let pages = 309;
+        this.books.push(new Book(
+            title, summary, pages, true, false,
+            this.books.length, this.#deleteNode));
+        title = 'The Hobbit';
+        summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
+        pages = 300;
+        this.books.push(new Book(
+            title, summary, pages, false, true,
+            this.books.length, this.#deleteNode));
     }
 }
 
