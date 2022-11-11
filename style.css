@@ -5,6 +5,10 @@
     --accent1: #0ea5e9;
     --accent1-light: #f0f9ff;
     --accent2: #eab308;
+    --orange: #f59e0b;
+    --orange-alpha: #f59e0b80;
+    --amber: #f59e0b;
+    --amber-alpha: #f59e0b80;
     --black: #0f172a;
     --offblack: #0f172a;
     --red: indianred;
@@ -122,3 +126,32 @@ body {
 .card>.read:hover,
 .card>.favorite:hover,
 .card>.delete:hover {opacity: 1;}
+
+/* ============================ Styling ============================ */
+/* ================================================================= */
+button {
+    background: linear-gradient(to bottom right, var(--orange), var(--amber));
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+
+    border: 0;
+    border-radius: 8px;
+
+    line-height: 2.5;
+    padding: 0 1rem;
+}
+button:hover {
+    box-shadow: 0 0 4px #0008,
+    -2px -2px 16px var(--orange-alpha),
+     2px 2px 16px var(--amber-alpha);
+}
+/* input[type="text"] {
+
+}
+textarea {
+
+}
+input[type="checkbox"] {
+
+} */

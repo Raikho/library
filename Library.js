@@ -14,12 +14,8 @@ export class Library {
         this.showUnreadNode = document.getElementById('show-unread');
         this.showFavoriteNode = document.getElementById('show-favorite');
 
-        this.showUnreadNode.addEventListener('click', () => {
-            this.#updateLibraryNode();
-        });
-        this.showFavoriteNode.addEventListener('click', () => {
-            this.#updateLibraryNode();
-        });
+        this.showUnreadNode.addEventListener('click', this.#updateLibraryNode);
+        this.showFavoriteNode.addEventListener('click', this.#updateLibraryNode);
 
         this.#addStartingBooks();
         this.#updateLibraryNode();
@@ -102,9 +98,9 @@ export class Book {
         this.titleNode = this.#makeElement('div', 'title', title);
         this.pagesNode = this.#makeElement('div', 'pages', pages);
         this.summaryNode = this.#makeElement('div', 'summary', summary);
-        this.readNode = this.#makeElement('button', 'read');
-        this.favoriteNode = this.#makeElement('button', 'favorite');
-        this.deleteNode = this.#makeElement('button', 'delete');
+        this.readNode = this.#makeElement('div', 'read');
+        this.favoriteNode = this.#makeElement('div', 'favorite');
+        this.deleteNode = this.#makeElement('div', 'delete');
 
         this.readNode.classList.add('svg');
         this.favoriteNode.classList.add('svg');
