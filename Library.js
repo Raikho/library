@@ -13,6 +13,10 @@ export class Library {
 
         this.showUnreadNode = document.getElementById('show-unread');
         this.showFavoriteNode = document.getElementById('show-favorite');
+        this.bookCounterNode = document.getElementById('book-counter');
+        this.pageCounterNode = document.getElementById('page-counter');
+        this.bookMeterNode = document.getElementById('book-meter');
+        this.pageMeterNode = document.getElementById('page-meter');
 
         this.showUnreadNode.addEventListener('click', this.#updateLibraryNode);
         this.showFavoriteNode.addEventListener('click', this.#updateLibraryNode);
@@ -49,12 +53,13 @@ export class Library {
     }
     #updateLibraryNode = () => {
         while (this.node.hasChildNodes())
-        this.node.removeChild(this.node.firstChild);
+            this.node.removeChild(this.node.firstChild);
 
-        for (let book of this.books) {
+        for (let book of this.books)
             if (this.#checkFilters(book))
                 this.node.appendChild(book.node);
-        }
+
+        this.#updateStats();
     }
     #updateIndicies() {
         for (let i=0; i<this.books.length; i++) {
@@ -63,11 +68,30 @@ export class Library {
         }
     }
     #checkFilters(book) {
-        if (this.showUnreadNode.checked && book.isRead == true) return false;
-        if (this.showFavoriteNode.checked  && book.isFavorite == false) return false;
+        if (this.showUnreadNode.checked && book.isRead) return false;
+        if (this.showFavoriteNode.checked  && !book.isFavorite) return false;
         return true;
     }
     #updateStats() {
+        let totalBooks = 0;
+        let totalPages = 0;
+        let readBooks = 0;
+        let readPages = 0;
+        for (let book of this.books) {
+            totalBooks += 1;
+            totalPages += book.pages;
+            if (book.isRead) {
+                readBooks += 1;
+                readPages += book.pages;
+            }
+        }
+        this.bookCounterNode.textContent = `Books Read: ${readBooks} / ${totalBooks}`;
+        this.pageCounterNode.textContent = `Pages Read: ${readPages} / ${totalPages}`;
+
+        let bookPercent = readBooks / totalBooks * 100;
+        let pagePercent = readPages / totalPages * 100;
+        this.bookMeterNode.attributes.style.value = `width: ${bookPercent}%`;
+        this.pageMeterNode.attributes.style.value = `width: ${pagePercent}%`;
     }
 
     #addStartingBooks() {
@@ -75,13 +99,13 @@ export class Library {
         let summary = 'Harry is summoned to attend an infamous school for wizards, and he begins to discover some clues about his illustrious birthright.';
         let pages = 309;
         this.books.push(new Book(
-            title, summary, pages, true, false,
+            title, summary, pages, false, false,
             this.books.length, this.#deleteBook, this.#updateLibraryNode));
         title = 'The Hobbit';
         summary = 'Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
         pages = 300;
         this.books.push(new Book(
-            title, summary, pages, false, true,
+            title, summary, pages, true, true,
             this.books.length, this.#deleteBook, this.#updateLibraryNode));
     }
 }
