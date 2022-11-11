@@ -51,13 +51,9 @@ export class Library {
         while (this.node.hasChildNodes())
         this.node.removeChild(this.node.firstChild);
 
-        let isOnlyUnread = this.showUnreadNode.checked;
-        let isOnlyFavorite = this.showFavoriteNode.checked;
-
         for (let book of this.books) {
-            if (isOnlyUnread && book.isRead == true) continue;
-            if (isOnlyFavorite && book.isFavorite == false) continue;
-            this.node.appendChild(book.node);
+            if (this.#checkFilters(book))
+                this.node.appendChild(book.node);
         }
     }
     #updateIndicies() {
@@ -65,6 +61,13 @@ export class Library {
             let book = this.books[i];
             book.index = i;
         }
+    }
+    #checkFilters(book) {
+        if (this.showUnreadNode.checked && book.isRead == true) return false;
+        if (this.showFavoriteNode.checked  && book.isFavorite == false) return false;
+        return true;
+    }
+    #updateStats() {
     }
 
     #addStartingBooks() {

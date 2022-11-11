@@ -64,8 +64,6 @@ body {
     gap: 10px;
 }
 .container.toggles {
-    background-color: var(--orange-alpha);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,7 +72,6 @@ body {
 .container.toggles>label {display: flex; align-items: center}
 .container.stats {
     flex: 1;
-    background-color: var(--amber-alpha);
 
     display: grid;
     grid-template-columns: max-content 1fr;
