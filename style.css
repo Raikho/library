@@ -87,6 +87,7 @@ body {
 }
 .card>.title {grid-area: title; font-weight: 700;}
 .card>.pages {grid-area: pages; justify-self: end; opacity: 0.5;}
+.card>.pages::after {content: 'pg';}
 .card>.summary {
     grid-area: summary;
     color: var(--offblack);
@@ -132,26 +133,27 @@ body {
 button {
     background: linear-gradient(to bottom right, var(--orange), var(--amber));
     color: var(--white);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
+    line-height: 2.5;
+    text-shadow: 1px 1px 2px  #0004;
 
+    padding: 0 1rem;
     border: 0;
     border-radius: 8px;
-
-    line-height: 2.5;
-    padding: 0 1rem;
+    box-shadow: 2px 2px 4px #0004;
 }
 button:hover {
     box-shadow: 0 0 4px #0008,
     -2px -2px 16px var(--orange-alpha),
      2px 2px 16px var(--amber-alpha);
 }
-/* input[type="text"] {
-
-}
+input,
 textarea {
-
+    background-color: var(--accent1-light);
+    border: 1px solid #0004;
+    box-shadow: 2px 2px 2px #0002;
+    border-radius: 5px;
 }
-input[type="checkbox"] {
-
-} */
+textarea {resize: none;}
+input[type="checkbox"] {width: 20px; height: 20px;}
