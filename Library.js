@@ -25,17 +25,37 @@ export class Library {
         this.#updateLibraryNode();
     }
     #validate() {
-        const title = this.titleNode;
-        const titleConstraint = new  RegExp("[a-zA-Z0-9 '\-]", "");
+        const forms = {
+            title: {
+                node: this.titleNode,
+                constraint: new RegExp("[a-zA-Z0-9 '\-]+$", ""),
+                isValid: false,
+            },
+            summary: {
+                node: this.summaryNode,
+                constraint: new RegExp("[a-zA-Z0-9 '\-]+", ""),
+                isValid: false,
+            },
+            pages: {
+                node: this.pagesNode,
+                constraint: new RegExp("[0-9]+$", ""),
+                isValid: false,
+            }
+        };
 
-        if (titleConstraint.test(title.value)) {
-            console.log(`constraint passed: ${titleConstraint} on ${title.value}`);
-            return true;
+        for (let prop in forms) {
+            let form = forms[prop];
+
+            if (form.constraint.test(form.node.value)) {
+                form.isValid = true;
+                form.node.setCustomValidity('');
+            } else {
+                form.isValid = false;
+                form.node.setCustomValidity('Invalid input');
+            }
         }
-        else {
-            title.setCustomValidity('Title must be valid');
-            return false;
-        }
+
+        return (forms.title.isValid && forms.summary.isValid && forms.pages.isValid);
     }
     #addBook() {
         if (!this.#validate())
