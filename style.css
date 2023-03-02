@@ -189,6 +189,12 @@ textarea {
 textarea {resize: none;}
 input[type="checkbox"] {width: 20px; height: 20px;}
 
+input:invalid,
+textarea:invalid {
+    border-color: rgba(255, 0, 0, .5);
+    box-shadow: 0 0 10px rgba(255, 0, 0, .8);
+}
+
 .meter {
     height: 20px;
     width: 200px;

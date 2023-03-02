@@ -24,7 +24,23 @@ export class Library {
         this.#addStartingBooks();
         this.#updateLibraryNode();
     }
+    #validate() {
+        const title = this.titleNode;
+        const titleConstraint = new  RegExp("[a-zA-Z0-9 '\-]", "");
+
+        if (titleConstraint.test(title.value)) {
+            console.log(`constraint passed: ${titleConstraint} on ${title.value}`);
+            return true;
+        }
+        else {
+            title.setCustomValidity('Title must be valid');
+            return false;
+        }
+    }
     #addBook() {
+        if (!this.#validate())
+            return;
+
         let title = this.titleNode.value || 'empty';
         let summary = this.summaryNode.value || 'empty';
         let pages = Number(this.pagesNode.value) || 0;
